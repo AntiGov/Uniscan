@@ -11,7 +11,7 @@ use HTTP::Request;
 use LWP::UserAgent;
 use Uniscan::Configure;
 use strict;
-
+binmode STDOUT, ":utf8";
 
 our %conf = ( );
 our $cfg = Uniscan::Configure->new(conffile => "uniscan.conf");
@@ -184,6 +184,7 @@ sub write(){
 	my ($self, $text) = @_;
 
 	open(my $log, ">>". $conf{'log_file'}) or die "$!\n";
+	binmode($log, ":utf8");
 	print $log "$text\n";
 	close($log);
 
