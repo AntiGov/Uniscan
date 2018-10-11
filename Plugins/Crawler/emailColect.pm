@@ -18,10 +18,15 @@ sub execute {
 	my $content = shift;
 
 	while($content =~m/([\w\-\_\.]+\@[\w\d\-]+\.\w+[\.[a-z]+]*)/g){
-		$email{$1}++;
+		$email{$1}++ if defined $1 && isValidEmail($1);
 	}
 }
 
+sub isValidEmail{
+	my $email = shift;
+  return $email !~ /\.text|\.label|\.css|\.jpg|\.jpeg|\.png|\.ico|\.mp4|\.mp3|\.json|\.xml|\.doc|\.pdf|\.js|mailto:/gi ? 1 : 0;
+
+}
 
 sub showResults(){
 	my $self = shift;
